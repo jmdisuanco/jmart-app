@@ -1,10 +1,10 @@
 {
   "version": "0.2.0",
   "notes": "First release under the new versioning + publishing infrastructure. Includes the aware → jmart rename (bundle identifier, paths, env vars, NAPI artifact), redesigned dashboard, rocket icon.",
-  "pub_date": "2026-05-20T15:01:41.012Z",
+  "pub_date": "2026-05-21T04:23:27.745Z",
   "platforms": {
     "darwin-aarch64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUNjc0Y1paNnZvZlFYb3kyL2pseFNsUW5lbXNqOHBES0ovYjI2NC9UQm9reGxxU25uWnVueTBrQ0ZqcW1vbitxQXpZRXc0QXhzYnRhTUVydnV4QkFVSUxRQkZiQUU5WndvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc5Mjg3ODczCWZpbGU6Sk1hcnQuYXBwLnRhci5negpxY0YwaExneFpnMlMzdHVuRjVjeGozVTdTTUtZelpUUVFCc2c4V0NuM1I2aGFrV1BSamZsME4xWklJZzBoUVAyTUJkSkVKVFl2MUxSaCsyTFlFYnZDUT09Cg==",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUNjc0Y1paNnZvZlFkSk5vemJKT241cWpUSW1BaXJXSGdHTndkdTRMOERVU3drUDRYdDUrMUF5dmlweDBObnBnbVN4VWc1U0pwcVRhVlBkZVk1bXZqb28yOE9uTlJBcVFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc5MzIxNjE2CWZpbGU6Sk1hcnQuYXBwLnRhci5nego2dFdHMmo3czN0S2pjVDNHV1hxUVVjVTVHWVZhRTNDVk1KK0o2djFFYldWM1laNnRSQytTakNDSUdvd0xnMldBYmMzc2RxaWVlTVhjNmFrUmdWZUJDQT09Cg==",
       "url": "https://github.com/jmdisuanco/jmart-app/releases/download/v0.2.0/JMart.app.tar.gz"
     }
   }
