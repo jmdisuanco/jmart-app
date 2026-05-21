@@ -79,7 +79,8 @@
 			display: grid;
 			gap: 1.5rem;
 			grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-			margin-bottom: 3rem;
+			max-width: 520px;
+			margin: 0 auto 3rem;
 		}
 		.channel {
 			background: var(--bg-card);
@@ -238,17 +239,9 @@
 		</header>
 
 		<div class="channels">
-			<section class="channel release" id="channel-release">
-				<h2>Release <span class="channel-badge">Stable</span></h2>
-				<p class="channel-description">Tagged releases. Recommended for everyday use.</p>
-				<p class="version-info" id="release-info">Loading…</p>
-				<div class="platforms" id="release-platforms"></div>
-				<div class="notes" id="release-notes"></div>
-			</section>
-
 			<section class="channel preview" id="channel-preview">
 				<h2>Preview <span class="channel-badge">Beta</span></h2>
-				<p class="channel-description">Early builds. New features sooner, fewer guarantees.</p>
+				<p class="channel-description">Early build. New features arrive here first.</p>
 				<p class="version-info" id="preview-info">Loading…</p>
 				<div class="platforms" id="preview-platforms"></div>
 				<div class="notes" id="preview-notes"></div>
@@ -335,7 +328,8 @@
 			}
 		}
 
-		["release", "preview"].forEach(loadChannel);
+		// Release channel is hidden for now; only Preview is visible publicly.
+		["preview"].forEach(loadChannel);
 	</script>
 </body>
 </html>
