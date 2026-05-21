@@ -3,134 +3,342 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>JMart — AI-powered desktop IDE</title>
-	<meta name="description" content="Download JMart — an AI-powered desktop IDE with agents, code search, and tools that run locally.">
+	<title>JMart — AI platform built for builders</title>
+	<meta name="description" content="JMart is a desktop AI assistant that lives where your code does. Multiple agents. Customizable skills. Your work stays on your machine.">
 	<link rel="icon" type="image/png" href="jmart-logo.png">
 	<style>
 		:root {
 			--bg: #0a0b14;
 			--bg-card: #131523;
 			--bg-card-hover: #1a1d2e;
+			--bg-soft: #0f1120;
 			--border: #232639;
+			--border-soft: #1a1d2e;
 			--text: #f1f4f9;
 			--text-muted: #8b8fa3;
+			--text-soft: #6b6f85;
 			--accent: #6366f1;
 			--accent-hover: #4f46e5;
 			--accent-preview: #f59e0b;
 			--accent-preview-hover: #d97706;
-			--success: #10b981;
 			--error: #ef4444;
+			--ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 		}
 		@media (prefers-color-scheme: light) {
 			:root {
-				--bg: #f8fafc;
+				--bg: #fafbfc;
 				--bg-card: #ffffff;
-				--bg-card-hover: #f1f5f9;
-				--border: #e2e8f0;
+				--bg-card-hover: #f6f8fa;
+				--bg-soft: #f6f8fa;
+				--border: #e6e8eb;
+				--border-soft: #eef0f3;
 				--text: #0f172a;
-				--text-muted: #64748b;
+				--text-muted: #4d5566;
+				--text-soft: #8a8f9c;
 			}
 		}
 		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
 		body {
 			margin: 0;
 			font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
 			background: var(--bg);
 			color: var(--text);
-			line-height: 1.5;
-			min-height: 100vh;
+			line-height: 1.55;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		/* ============ LAYOUT ============ */
+		.site-header {
+			max-width: 1100px;
+			margin: 0 auto;
+			padding: 1.75rem 1.5rem 0;
 			display: flex;
-			flex-direction: column;
+			align-items: center;
+			gap: 0.6rem;
+		}
+		.site-header img {
+			width: 28px;
+			height: 28px;
+			border-radius: 7px;
+			object-fit: cover;
+		}
+		.site-header .brand {
+			font-weight: 700;
+			font-size: 0.95rem;
+			letter-spacing: 0.04em;
 		}
 		main {
-			flex: 1;
-			max-width: 960px;
+			max-width: 1100px;
 			margin: 0 auto;
-			padding: 4rem 1.5rem 6rem;
-			width: 100%;
+			padding: 2.5rem 1.5rem 4rem;
 		}
-		header {
-			text-align: center;
-			margin-bottom: 4rem;
+		section { margin-bottom: 6rem; }
+
+		/* ============ HERO ============ */
+		.hero {
+			padding: 5rem 0 5rem;
+			max-width: 760px;
 		}
-		.logo {
-			width: 96px;
-			height: 96px;
-			border-radius: 22px;
-			display: block;
-			margin: 0 auto 1.5rem;
-			object-fit: cover;
-			box-shadow: 0 8px 32px rgba(99, 102, 241, 0.2);
-			background: var(--bg-card);
-			border: 1px solid var(--border);
-		}
-		h1 {
-			font-size: 3rem;
-			margin: 0 0 0.5rem;
-			letter-spacing: -0.02em;
+		.hero-headline {
+			font-size: clamp(2.5rem, 6vw, 4.25rem);
 			font-weight: 700;
+			letter-spacing: -0.035em;
+			line-height: 1.02;
+			margin: 0 0 1.25rem;
+			color: var(--text);
 		}
-		.tagline {
-			font-size: 1.25rem;
+		.hero-subhead {
+			font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+			font-weight: 500;
 			color: var(--text-muted);
-			margin: 0;
+			margin: 0 0 1.75rem;
+			letter-spacing: -0.01em;
 		}
-		.channels {
+		.hero-lede {
+			font-size: 1.0625rem;
+			color: var(--text-muted);
+			max-width: 580px;
+			margin: 0 0 2.5rem;
+			line-height: 1.6;
+		}
+		.hero-cta {
+			display: inline-flex;
+			gap: 1rem;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.85rem 1.5rem;
+			border-radius: 9px;
+			font-size: 0.975rem;
+			font-weight: 600;
+			text-decoration: none;
+			transition: background 0.15s, transform 0.1s, opacity 0.15s, border-color 0.15s, color 0.15s;
+			border: 1px solid transparent;
+			cursor: pointer;
+		}
+		.btn-primary {
+			background: var(--text);
+			color: var(--bg);
+			border-color: var(--text);
+		}
+		.btn-primary:hover { opacity: 0.88; }
+		.btn-primary:active { transform: translateY(1px); }
+		.btn-ghost {
+			background: transparent;
+			color: var(--text-muted);
+			border-color: var(--border);
+		}
+		.btn-ghost:hover { color: var(--text); border-color: var(--text-soft); }
+		.hero-version-hint {
+			font-size: 0.8125rem;
+			color: var(--text-soft);
+			margin: 1.25rem 0 0;
+			font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+			min-height: 1.2em;
+		}
+
+		/* ============ SECTION META ============ */
+		.section-eyebrow {
+			font-size: 0.75rem;
+			font-weight: 700;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--text-soft);
+			margin: 0 0 0.85rem;
+		}
+		.section-heading {
+			font-size: clamp(1.75rem, 3vw, 2.25rem);
+			font-weight: 700;
+			letter-spacing: -0.02em;
+			margin: 0 0 0.85rem;
+			line-height: 1.15;
+		}
+		.section-lede {
+			font-size: 1.05rem;
+			color: var(--text-muted);
+			max-width: 640px;
+			margin: 0 0 2.5rem;
+		}
+
+		/* ============ VALUE PROPS ============ */
+		.value-props {
 			display: grid;
-			gap: 1.5rem;
-			grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-			max-width: 520px;
-			margin: 0 auto 3rem;
+			gap: 2rem;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 		}
-		.channel {
+		.value-prop-icon {
+			font-size: 1.5rem;
+			margin-bottom: 0.5rem;
+			line-height: 1;
+		}
+		.value-prop h3 {
+			font-size: 1.0625rem;
+			font-weight: 600;
+			margin: 0 0 0.35rem;
+			letter-spacing: -0.01em;
+		}
+		.value-prop p {
+			margin: 0;
+			color: var(--text-muted);
+			font-size: 0.95rem;
+		}
+
+		/* ============ WHY ============ */
+		.why-list {
+			display: grid;
+			gap: 2.5rem 2rem;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		}
+		.why-item h3 {
+			font-size: 1.125rem;
+			font-weight: 600;
+			margin: 0 0 0.5rem;
+			letter-spacing: -0.01em;
+		}
+		.why-item p {
+			margin: 0;
+			color: var(--text-muted);
+			font-size: 0.975rem;
+		}
+
+		/* ============ FEATURES ============ */
+		.features {
+			display: grid;
+			gap: 1rem;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		}
+		.feature {
+			padding: 1.4rem 1.5rem;
 			background: var(--bg-card);
 			border: 1px solid var(--border);
-			border-radius: 16px;
-			padding: 2rem;
+			border-radius: 12px;
 			transition: background 0.15s, transform 0.15s, border-color 0.15s;
+		}
+		.feature:hover {
+			background: var(--bg-card-hover);
+			border-color: var(--text-soft);
+			transform: translateY(-2px);
+		}
+		.feature-icon {
+			font-size: 1.25rem;
+			line-height: 1;
+			margin-bottom: 0.6rem;
+		}
+		.feature h3 {
+			font-size: 0.975rem;
+			font-weight: 600;
+			margin: 0 0 0.25rem;
+			letter-spacing: -0.005em;
+		}
+		.feature p {
+			margin: 0;
+			font-size: 0.875rem;
+			color: var(--text-muted);
+			line-height: 1.5;
+		}
+
+		/* ============ HOW IT WORKS ============ */
+		.steps {
+			display: grid;
+			gap: 2rem;
+			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+			counter-reset: step;
+		}
+		.step {
+			position: relative;
+			padding-top: 1.75rem;
+			border-top: 1px solid var(--border);
+		}
+		.step::before {
+			counter-increment: step;
+			content: "0" counter(step);
+			position: absolute;
+			top: -0.1rem;
+			left: 0;
+			font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+			font-size: 0.75rem;
+			color: var(--text-soft);
+			font-weight: 700;
+			background: var(--bg);
+			padding-right: 0.5rem;
+			transform: translateY(-50%);
+		}
+		.step h3 {
+			font-size: 1.0625rem;
+			font-weight: 600;
+			margin: 0 0 0.4rem;
+			letter-spacing: -0.01em;
+		}
+		.step p {
+			margin: 0;
+			color: var(--text-muted);
+			font-size: 0.95rem;
+		}
+
+		/* ============ PRIVACY ============ */
+		.privacy-grid {
+			display: grid;
+			gap: 2rem;
+			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		}
+		.privacy-block h3 {
+			font-size: 0.95rem;
+			font-weight: 600;
+			margin: 0 0 0.4rem;
+			color: var(--text);
+		}
+		.privacy-block p {
+			margin: 0;
+			color: var(--text-muted);
+			font-size: 0.95rem;
+		}
+
+		/* ============ DOWNLOAD ============ */
+		.download-card {
+			background: var(--bg-card);
+			border: 1px solid var(--border);
+			border-top: 3px solid var(--accent-preview);
+			border-radius: 14px;
+			padding: 1.85rem;
+			max-width: 520px;
 			display: flex;
 			flex-direction: column;
 		}
-		.channel:hover {
-			background: var(--bg-card-hover);
-			transform: translateY(-2px);
-		}
-		.channel.release { border-top: 3px solid var(--accent); }
-		.channel.preview { border-top: 3px solid var(--accent-preview); }
-		.channel h2 {
+		.download-card h2 {
 			margin: 0 0 0.5rem;
-			font-size: 1.5rem;
+			font-size: 1.35rem;
 			font-weight: 600;
 			display: flex;
 			align-items: center;
 			gap: 0.5rem;
+			letter-spacing: -0.01em;
 		}
 		.channel-badge {
-			font-size: 0.7rem;
+			font-size: 0.65rem;
 			text-transform: uppercase;
-			letter-spacing: 0.05em;
-			padding: 0.2rem 0.6rem;
+			letter-spacing: 0.06em;
+			padding: 0.15rem 0.55rem;
 			border-radius: 999px;
-			font-weight: 600;
-		}
-		.release .channel-badge {
-			background: rgba(99, 102, 241, 0.15);
-			color: var(--accent);
-		}
-		.preview .channel-badge {
-			background: rgba(245, 158, 11, 0.15);
+			font-weight: 700;
+			background: rgba(245, 158, 11, 0.14);
 			color: var(--accent-preview);
 		}
 		.channel-description {
 			color: var(--text-muted);
-			font-size: 0.95rem;
-			margin: 0 0 1rem;
+			font-size: 0.925rem;
+			margin: 0 0 0.85rem;
 		}
 		.version-info {
 			font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-			font-size: 0.85rem;
+			font-size: 0.8125rem;
 			color: var(--text-muted);
-			margin: 0 0 1.25rem;
+			margin: 0 0 1.15rem;
 			min-height: 1.2em;
 		}
 		.version-info strong {
@@ -146,13 +354,12 @@
 			display: inline-flex;
 			align-items: center;
 			gap: 0.6rem;
-			padding: 0.7rem 1rem;
-			border-radius: 10px;
-			font-size: 0.95rem;
+			padding: 0.65rem 0.95rem;
+			border-radius: 9px;
+			font-size: 0.925rem;
 			font-weight: 600;
 			text-decoration: none;
 			transition: background 0.15s, transform 0.1s, opacity 0.15s;
-			color: white;
 			background: var(--bg);
 			border: 1px solid var(--border);
 			color: var(--text);
@@ -164,124 +371,390 @@
 			gap: 0.5rem;
 		}
 		.platform-btn .platform-name svg {
-			width: 18px;
-			height: 18px;
-			opacity: 0.8;
+			width: 16px;
+			height: 16px;
+			opacity: 0.85;
 		}
 		.platform-btn .platform-status {
-			font-size: 0.75rem;
-			font-weight: 500;
+			font-size: 0.7rem;
+			font-weight: 600;
 			color: var(--text-muted);
 			text-transform: uppercase;
 			letter-spacing: 0.05em;
 		}
 		.platform-btn.available {
+			background: var(--accent-preview);
+			border-color: var(--accent-preview);
 			color: white;
 		}
-		.release .platform-btn.available { background: var(--accent); border-color: var(--accent); }
-		.release .platform-btn.available:hover { background: var(--accent-hover); }
-		.preview .platform-btn.available { background: var(--accent-preview); border-color: var(--accent-preview); }
-		.preview .platform-btn.available:hover { background: var(--accent-preview-hover); }
+		.platform-btn.available:hover { background: var(--accent-preview-hover); }
 		.platform-btn.available:active { transform: translateY(1px); }
-		.platform-btn.available .platform-status { color: rgba(255,255,255,0.8); }
+		.platform-btn.available .platform-status { color: rgba(255,255,255,0.85); }
 		.platform-btn.unavailable {
-			opacity: 0.55;
+			opacity: 0.5;
 			pointer-events: none;
 			cursor: not-allowed;
 		}
-		.notes {
-			margin-top: 1.5rem;
-			padding-top: 1.25rem;
-			border-top: 1px solid var(--border);
-			font-size: 0.85rem;
-			color: var(--text-muted);
-			line-height: 1.55;
-			max-height: 120px;
-			overflow: hidden;
-			position: relative;
-			white-space: pre-wrap;
-			word-break: break-word;
-		}
-		.notes:after {
-			content: "";
-			position: absolute;
-			inset: auto 0 0 0;
-			height: 30px;
-			background: linear-gradient(transparent, var(--bg-card));
-			pointer-events: none;
-		}
-		.notes:empty { display: none; }
 		.gatekeeper-note {
-			background: var(--bg-card);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			padding: 1.25rem 1.5rem;
-			font-size: 0.9rem;
+			margin-top: 1.5rem;
+			max-width: 520px;
+			background: var(--bg-soft);
+			border: 1px solid var(--border-soft);
+			border-radius: 10px;
+			padding: 0.95rem 1.15rem;
+			font-size: 0.825rem;
 			color: var(--text-muted);
 			line-height: 1.55;
 		}
 		.gatekeeper-note strong { color: var(--text); }
 		.gatekeeper-note code {
 			background: var(--bg);
-			padding: 0.15rem 0.4rem;
+			padding: 0.1rem 0.4rem;
 			border-radius: 4px;
 			font-size: 0.85em;
 		}
+
+		/* ============ FAQ ============ */
+		.faq-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+		.faq-item h3 {
+			font-size: 1rem;
+			font-weight: 600;
+			margin: 0 0 0.4rem;
+			letter-spacing: -0.01em;
+		}
+		.faq-item p {
+			margin: 0;
+			color: var(--text-muted);
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		/* ============ FOOTER ============ */
+		footer {
+			text-align: center;
+			color: var(--text-soft);
+			font-size: 0.8125rem;
+			font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+			padding: 2.5rem 1rem 3rem;
+			border-top: 1px solid var(--border-soft);
+		}
+
 		.error { color: var(--error); font-style: italic; }
+
+		/* ============ ANIMATIONS (animista-style, minimal) ============ */
+		@keyframes text-focus-in {
+			0% { filter: blur(8px); opacity: 0; }
+			100% { filter: blur(0); opacity: 1; }
+		}
+		@keyframes fade-in-bottom {
+			0% { opacity: 0; transform: translateY(16px); }
+			100% { opacity: 1; transform: translateY(0); }
+		}
+
+		/* Hero entrance (staggered on load) */
+		.site-header {
+			opacity: 0;
+			animation: fade-in-bottom 600ms var(--ease-out) 0ms forwards;
+		}
+		.hero-headline {
+			opacity: 0;
+			animation: text-focus-in 800ms var(--ease-out) 150ms forwards;
+		}
+		.hero-subhead {
+			opacity: 0;
+			animation: fade-in-bottom 600ms var(--ease-out) 350ms forwards;
+		}
+		.hero-lede {
+			opacity: 0;
+			animation: fade-in-bottom 600ms var(--ease-out) 500ms forwards;
+		}
+		.hero-cta, .hero-version-hint {
+			opacity: 0;
+			animation: fade-in-bottom 600ms var(--ease-out) 650ms forwards;
+		}
+
+		/* Scroll-into-view sections */
+		.reveal {
+			opacity: 0;
+			transform: translateY(16px);
+		}
+		.reveal.visible {
+			animation: fade-in-bottom 500ms var(--ease-out) forwards;
+		}
+
+		/* Respect reduced-motion preference */
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after {
+				animation-duration: 0.01ms !important;
+				animation-delay: 0ms !important;
+				transition-duration: 0.01ms !important;
+			}
+			.site-header, .hero-headline, .hero-subhead, .hero-lede,
+			.hero-cta, .hero-version-hint, .reveal {
+				opacity: 1 !important;
+				transform: none !important;
+				filter: none !important;
+			}
+		}
+
+		/* ============ RESPONSIVE ============ */
+		@media (max-width: 640px) {
+			.site-header { padding: 1.25rem 1.25rem 0; }
+			main { padding: 1.5rem 1.25rem 2rem; }
+			.hero { padding: 3rem 0 3rem; }
+			section { margin-bottom: 4rem; }
+		}
 	</style>
 </head>
 <body>
+	<header class="site-header">
+		<img src="jmart-logo.png" alt="">
+		<span class="brand">JMart</span>
+	</header>
+
 	<main>
-		<header>
-			<img src="jmart-logo.png" alt="JMart" class="logo">
-			<h1>JMart</h1>
-			<p class="tagline">Build what you imagine — your local AI IDE.</p>
+		<!-- ============ HERO ============ -->
+		<header class="hero">
+			<h1 class="hero-headline">AI platform built for builders.</h1>
+			<p class="hero-subhead">Build what you imagine.</p>
+			<p class="hero-lede">A desktop AI assistant that lives where your code does. Multiple agents. Customizable skills. Your work stays on your machine.</p>
+			<div class="hero-cta">
+				<a class="btn btn-primary" href="#download" id="hero-download">Download for macOS</a>
+				<a class="btn btn-ghost" href="#features">See what it does ↓</a>
+			</div>
+			<p class="hero-version-hint" id="hero-version"></p>
 		</header>
 
-		<div class="channels">
-			<section class="channel preview" id="channel-preview">
+		<!-- ============ VALUE PROPS ============ -->
+		<section class="reveal">
+			<div class="value-props">
+				<div class="value-prop">
+					<div class="value-prop-icon">🖥️</div>
+					<h3>Stays on your machine</h3>
+					<p>Your code, conversations, agents, and tasks live on your computer. No telemetry, no sign-up.</p>
+				</div>
+				<div class="value-prop">
+					<div class="value-prop-icon">🔌</div>
+					<h3>Bring your own AI</h3>
+					<p>Use top-tier cloud models for hard problems. Use local models for everyday work. Mix per task.</p>
+				</div>
+				<div class="value-prop">
+					<div class="value-prop-icon">⚡</div>
+					<h3>Made for serious work</h3>
+					<p>Fast, lean, with direct access to your files and terminal. Designed for actual development, not demos.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ WHY JMART ============ -->
+		<section class="reveal">
+			<p class="section-eyebrow">Why JMart</p>
+			<h2 class="section-heading">A better place for your AI to live.</h2>
+			<p class="section-lede">Browser AI is great until you need to actually ship something. JMart pairs the conversation with the work.</p>
+			<div class="why-list">
+				<div class="why-item">
+					<h3>Stop tab-switching</h3>
+					<p>Your AI assistant lives in the same app as your code — with persistent conversations, a file tree, a real terminal, and visibility into every action it takes.</p>
+				</div>
+				<div class="why-item">
+					<h3>Use whatever model you want</h3>
+					<p>Heavy task? Reach for a top-tier model. Quick fix? A local model does it for free, offline. Switch per agent. Match the model to the task.</p>
+				</div>
+				<div class="why-item">
+					<h3>Make it yours</h3>
+					<p>Skills are plain text files. Agents are configurable. The whole thing is built to be shaped — not a closed black box.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ FEATURES ============ -->
+		<section id="features" class="reveal">
+			<p class="section-eyebrow">What you can do</p>
+			<h2 class="section-heading">Everything you need in one place.</h2>
+			<p class="section-lede">An honest list of what JMart actually does today.</p>
+			<div class="features">
+				<div class="feature">
+					<div class="feature-icon">💬</div>
+					<h3>AI Chat</h3>
+					<p>Streaming conversations where the agent reads your code, runs commands, and edits files in real time.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">🧠</div>
+					<h3>Multiple Agents</h3>
+					<p>Specialized AI personas — one to plan, one to build, one to review. Pick the right one for the job.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">📦</div>
+					<h3>Skills</h3>
+					<p>Modular instruction sets that focus the AI on a specific task. A dozen built in. Add your own.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">🔎</div>
+					<h3>Search by Meaning</h3>
+					<p>Ask in plain English. The AI finds the relevant code anywhere in your project.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">🖥️</div>
+					<h3>Built-in Terminal</h3>
+					<p>Watch your AI run commands. Or run them yourself.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">📋</div>
+					<h3>Kanban Board</h3>
+					<p>Visual task board. The AI can plan, break down, and execute tasks for you.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">🎨</div>
+					<h3>Visual Designer</h3>
+					<p>Drag-and-drop canvas for UI layouts. The AI reads your design and modifies it.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">✏️</div>
+					<h3>Whiteboard</h3>
+					<p>Sketch ideas, diagrams, and mind maps. The AI participates.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">🔊</div>
+					<h3>Voice</h3>
+					<p>Generate voice-overs, podcasts, and audiobooks. Or talk to your AI directly.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">📷</div>
+					<h3>Vision</h3>
+					<p>Drop an image into chat. The AI sees it and responds.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">🔒</div>
+					<h3>Safe Mode</h3>
+					<p>Run AI tasks in isolated environments when you want guardrails.</p>
+				</div>
+				<div class="feature">
+					<div class="feature-icon">🔄</div>
+					<h3>Always Up to Date</h3>
+					<p>New versions install on launch with one click.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ HOW IT WORKS ============ -->
+		<section class="reveal">
+			<p class="section-eyebrow">How it works</p>
+			<h2 class="section-heading">Three steps to ship.</h2>
+			<div class="steps">
+				<div class="step">
+					<h3>Open your project</h3>
+					<p>Install JMart and point it at a project folder. Your codebase indexes locally on first open.</p>
+				</div>
+				<div class="step">
+					<h3>Describe a goal</h3>
+					<p>Fix a bug, draft a feature, refactor a module, design an API. The agent reads, plans, runs.</p>
+				</div>
+				<div class="step">
+					<h3>Watch and verify</h3>
+					<p>Every action appears in the activity log. Approve, edit, or re-run anything you need to.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ PRIVACY ============ -->
+		<section class="reveal">
+			<p class="section-eyebrow">Privacy by design</p>
+			<h2 class="section-heading">Your work stays yours.</h2>
+			<div class="privacy-grid">
+				<div class="privacy-block">
+					<h3>What stays on your machine</h3>
+					<p>Your code, conversation history, agents, skills, and tasks. No exceptions.</p>
+				</div>
+				<div class="privacy-block">
+					<h3>What leaves your machine</h3>
+					<p>Only requests you make to a cloud AI provider — direct from your computer to theirs. Plus a single version check on launch.</p>
+				</div>
+				<div class="privacy-block">
+					<h3>What we never do</h3>
+					<p>Analytics. Telemetry. Required accounts. Selling anything to anyone.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ DOWNLOAD ============ -->
+		<section id="download" class="reveal">
+			<p class="section-eyebrow">Download</p>
+			<h2 class="section-heading">Get the latest build.</h2>
+			<p class="section-lede">JMart is in preview. Updates arrive automatically as new versions ship.</p>
+
+			<div class="download-card" id="channel-preview">
 				<h2>Preview <span class="channel-badge">Beta</span></h2>
 				<p class="channel-description">Early build. New features arrive here first.</p>
 				<p class="version-info" id="preview-info">Loading…</p>
 				<div class="platforms" id="preview-platforms"></div>
-				<div class="notes" id="preview-notes"></div>
-			</section>
-		</div>
+			</div>
 
-		<div class="gatekeeper-note">
-			<strong>macOS Gatekeeper:</strong> these builds are not yet Apple-notarized. On first launch you may see an "app is damaged" warning. To unblock once:
-			<code>xattr -cr /Applications/JMart.app</code>
-		</div>
+			<div class="gatekeeper-note">
+				<strong>macOS first launch:</strong> these builds are not yet code-signed. If macOS shows an "app is damaged" warning, unblock once with: <code>xattr -cr /Applications/JMart.app</code>
+			</div>
+		</section>
+
+		<!-- ============ FAQ ============ -->
+		<section class="reveal">
+			<p class="section-eyebrow">Questions</p>
+			<h2 class="section-heading">Frequently asked.</h2>
+			<div class="faq-list">
+				<div class="faq-item">
+					<h3>Is JMart open source?</h3>
+					<p>Not for now. The app is free to download during this pre-release period.</p>
+				</div>
+				<div class="faq-item">
+					<h3>Will it be paid later?</h3>
+					<p>Yes. One-time purchase that includes a year of updates. The version you bought keeps working forever; renewing extends update access.</p>
+				</div>
+				<div class="faq-item">
+					<h3>Is it stable?</h3>
+					<p>Pre-release — expect rough edges and changes between versions. Updates land on launch.</p>
+				</div>
+				<div class="faq-item">
+					<h3>What AI can I use?</h3>
+					<p>Almost any modern language model — top-tier cloud models or anything you can run locally on your machine.</p>
+				</div>
+				<div class="faq-item">
+					<h3>Does it work offline?</h3>
+					<p>Yes, for everything except calls to cloud AI providers. Local-only setups are fully offline.</p>
+				</div>
+				<div class="faq-item">
+					<h3>What about Windows and Linux?</h3>
+					<p>Coming soon. macOS Apple Silicon ships first.</p>
+				</div>
+			</div>
+		</section>
 	</main>
 
+	<footer>
+		JMart · macOS Apple Silicon · v<span id="footer-version">0.x.x</span>-preview
+	</footer>
+
 	<script>
-		// SVG icons (inlined to avoid extra requests)
 		const ICON = {
 			"darwin-aarch64": `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>`,
 			"darwin-x86_64": `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>`,
 			"windows-x86_64": `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.351"/></svg>`,
 			"linux-x86_64": `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.504.075c-.617 0-1.117.488-1.117 1.098 0 .15.03.292.085.422-.034.027-.067.057-.1.087-1.063-.4-2.196-.4-3.26 0-.033-.03-.066-.06-.1-.087.055-.13.085-.272.085-.422 0-.61-.5-1.098-1.117-1.098-.616 0-1.117.488-1.117 1.098 0 .443.27.823.65.99-.39.317-.748.7-1.054 1.143C5.5 3.79 5.2 4.31 5 4.86c-.41.013-.74.348-.74.758 0 .258.13.486.327.62-.087.42-.13.85-.13 1.282 0 .916.187 1.797.53 2.62.235.563.563 1.09.965 1.563l-.39.39c-.156.156-.156.41 0 .566s.41.156.566 0l.39-.39c.475.4 1 .73 1.564.964.823.343 1.703.53 2.62.53.916 0 1.797-.187 2.62-.53.564-.234 1.09-.563 1.564-.964l.39.39c.156.156.41.156.566 0s.156-.41 0-.566l-.39-.39c.402-.473.73-1 .965-1.563.343-.823.53-1.704.53-2.62 0-.432-.043-.862-.13-1.282.197-.134.327-.362.327-.62 0-.41-.33-.745-.74-.758-.2-.55-.5-1.07-.83-1.534-.306-.443-.664-.826-1.054-1.143.38-.167.65-.547.65-.99 0-.61-.5-1.098-1.117-1.098Z"/></svg>`,
 		};
-
 		const LABEL = {
 			"darwin-aarch64": "macOS (Apple Silicon)",
 			"darwin-x86_64": "macOS (Intel)",
 			"windows-x86_64": "Windows (x64)",
 			"linux-x86_64": "Linux (x64)",
 		};
-
-		// Order in which to render the platform buttons.
 		const PLATFORM_ORDER = ["darwin-aarch64", "darwin-x86_64", "windows-x86_64", "linux-x86_64"];
 
 		function formatDate(iso) {
 			try {
-				const d = new Date(iso);
-				return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+				return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 			} catch { return ""; }
 		}
-
-		// Derive the user-facing .dmg/.msi/.AppImage URL from the manifest's .tar.gz URL.
-		// .tar.gz is the auto-update bundle; users want the installer instead.
 		function installerUrl(platformKey, tarUrl, version) {
 			const baseDir = tarUrl.replace(/\/[^\/]+$/, "");
 			if (platformKey === "darwin-aarch64") return `${baseDir}/JMart_${version}_aarch64.dmg`;
@@ -291,20 +764,26 @@
 			return tarUrl;
 		}
 
-		async function loadChannel(id) {
-			const info = document.getElementById(`${id}-info`);
-			const platforms = document.getElementById(`${id}-platforms`);
-			const notes = document.getElementById(`${id}-notes`);
+		async function loadPreview() {
+			const info = document.getElementById("preview-info");
+			const platforms = document.getElementById("preview-platforms");
+			const heroVersion = document.getElementById("hero-version");
+			const heroDownload = document.getElementById("hero-download");
+			const footerVersion = document.getElementById("footer-version");
 			try {
-				const res = await fetch(`${id}.json?t=${Date.now()}`, { cache: "no-store" });
+				const res = await fetch(`preview.json?t=${Date.now()}`, { cache: "no-store" });
 				if (!res.ok) throw new Error(`HTTP ${res.status}`);
 				const m = await res.json();
 				const pl = m.platforms || {};
-
 				info.innerHTML = `<strong>v${m.version}</strong> · ${formatDate(m.pub_date)}`;
+				heroVersion.textContent = `Latest: v${m.version} — ${formatDate(m.pub_date)}`;
+				footerVersion.textContent = m.version;
 
-				// Render every supported platform; the ones in the manifest are active,
-				// the rest are "Coming soon".
+				const mac = pl["darwin-aarch64"];
+				if (mac && mac.url) {
+					heroDownload.href = installerUrl("darwin-aarch64", mac.url, m.version);
+				}
+
 				platforms.innerHTML = "";
 				for (const key of PLATFORM_ORDER) {
 					const cell = pl[key];
@@ -320,16 +799,30 @@
 					}
 					platforms.appendChild(a);
 				}
-
-				notes.textContent = m.notes || "";
 			} catch (err) {
 				info.innerHTML = `<span class="error">Unavailable (${err.message})</span>`;
 				platforms.innerHTML = "";
 			}
 		}
 
-		// Release channel is hidden for now; only Preview is visible publicly.
-		["preview"].forEach(loadChannel);
+		// Scroll-into-view reveal for sections (one-shot per element)
+		const reveals = document.querySelectorAll(".reveal");
+		if ("IntersectionObserver" in window && reveals.length) {
+			const observer = new IntersectionObserver((entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				}
+			}, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+			reveals.forEach((el) => observer.observe(el));
+		} else {
+			// Fallback: just show them.
+			reveals.forEach((el) => el.classList.add("visible"));
+		}
+
+		loadPreview();
 	</script>
 </body>
 </html>
